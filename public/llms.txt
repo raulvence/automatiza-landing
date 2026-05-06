@@ -1,0 +1,33 @@
+# Automatiza
+
+> Automatización con IA para PYMEs en Panamá. Operado por Raul Vence desde Ciudad de Panamá.
+
+Automatiza implementa flujos automáticos, chatbots con inteligencia artificial, webs, apps y plugins de WordPress para pequeñas y medianas empresas panameñas. Sin contratos largos. Resultados medibles desde el primer mes.
+
+## Servicios
+
+- **Chatbots con IA por WhatsApp** — Asistentes que responden 24/7, agendan citas y califican leads. Desde $600 + mensualidad. Stack: WhatsApp Business API, Claude, n8n.
+- **Automatización de procesos** — Reportes, sincronización de sistemas, alertas y scrapers. Desde $400 por flujo. Stack: n8n, Python, AWS Lambda.
+- **Webs & Plugins WordPress** — Sitios y plugins conectados a flujos de automatización. Desde $800. Stack: WordPress, Astro, PHP.
+- **Imágenes con IA para WordPress** — Generación automática de imágenes para posts. Desde $500. Stack: Stable Diffusion, n8n.
+- **Desarrollo de Apps** — Dashboards internos, portales de clientes, herramientas de gestión. Desde $1,200. Stack: React, Node.js, AWS.
+- **Funciones AWS Lambda** — Microservicios serverless, webhooks y tareas programadas. Desde $350 por función. Stack: AWS Lambda, Python, Node.js.
+
+## Proceso
+
+1. Diagnóstico gratis de 30 minutos
+2. Propuesta en 48 horas
+3. Entrega en días, no meses
+4. Sin contratos largos — pago por avance
+
+## Contacto
+
+- Email: hola@automatiza.com.pa
+- WhatsApp: +507 6335 8201
+- Agendar diagnóstico: https://cal.com/raul-vence-lj1cij/30min
+- Web: https://automatiza.com.pa
+- Ubicación: Ciudad de Panamá, Panamá
+
+## Páginas
+
+- https://automatiza.com.pa — Landing principal con servicios, casos de uso y asistente IA
