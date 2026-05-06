@@ -5,8 +5,9 @@ export const SITE = {
   url: 'https://automatiza.com.pa',
   name: 'Automatiza',
   tagline: 'Automatización con IA para PYMEs en Panamá',
+  titleSeo: 'Automatización con IA para Empresas en Panamá | Automatiza',
   description:
-    'Implemento flujos automáticos, chatbots con IA, webs, apps y plugins de WordPress para PYMEs panameñas. Sin contratos largos. Resultados medibles desde el primer mes.',
+    'Chatbots WhatsApp, automatización de procesos y desarrollo web con IA para PYMEs en Panamá. Implementación en días, no meses. Diagnóstico gratis. Ciudad de Panamá.',
 
   // Email
   email: 'hola@automatiza.com.pa',

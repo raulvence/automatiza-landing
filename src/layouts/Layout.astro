@@ -8,11 +8,53 @@ export interface Props {
 }
 
 const {
-  title = `${SITE.name} — ${SITE.tagline}`,
+  title = SITE.titleSeo,
   description = SITE.description,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': ['ProfessionalService', 'LocalBusiness'],
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  telephone: '+507-6335-8201',
+  email: SITE.email,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Ciudad de Panamá',
+    addressRegion: 'Panamá',
+    addressCountry: 'PA',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 8.9943,
+    longitude: -79.5188,
+  },
+  areaServed: { '@type': 'Country', name: 'Panamá' },
+  serviceType: [
+    'Chatbots con IA para WhatsApp',
+    'Automatización de procesos con n8n',
+    'Desarrollo web y plugins WordPress',
+    'Generación de imágenes con IA',
+    'Desarrollo de aplicaciones web',
+    'Funciones serverless AWS Lambda',
+  ],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:00',
+    closes: '18:00',
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Raul Vence',
+  },
+  sameAs: [SITE.linkedin, SITE.instagram],
+};
 ---
 
 <!doctype html>
@@ -22,36 +64,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- SEO primario -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content="automatización con IA Panamá, chatbot WhatsApp Panamá, automatización procesos Panamá, desarrollo web Panamá, n8n Panamá, AWS Lambda Panamá, plugins WordPress Panamá, inteligencia artificial para empresas Panamá, PYMEs Panamá automatización" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Raul Vence — Automatiza" />
     <link rel="canonical" href={canonical} />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_PA" />
+    <meta property="og:site_name" content="Automatiza" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Theme color: dark cálido para coincidir con el bg -->
+    <!-- Geo tags para SEO local -->
+    <meta name="geo.region" content="PA" />
+    <meta name="geo.placename" content="Ciudad de Panamá" />
+    <meta name="geo.position" content="8.9943;-79.5188" />
+    <meta name="ICBM" content="8.9943, -79.5188" />
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="theme-color" content="#1F1D17" />
     <meta name="color-scheme" content="dark" />
 
-    <!-- Structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'ProfessionalService',
-      name: SITE.name,
-      description: SITE.description,
-      url: SITE.url,
-      email: SITE.email,
-      areaServed: { '@type': 'Country', name: 'Panamá' },
-      serviceType: ['Automatización de procesos', 'Chatbots con IA', 'Diseño web y plugins WordPress'],
-    })} />
+    <!-- Structured data LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
 
   <body>
