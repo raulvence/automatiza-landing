@@ -13,7 +13,7 @@ export const SITE = {
 
   // WhatsApp Business — TODO: reemplazar cuando tengas el chip
   // Formato internacional sin + ni espacios. Panamá: 507XXXXXXXX
-  whatsapp: '50766775734',
+  whatsapp: '50763358201',
   whatsappMessage:
     'Hola, vengo de automatiza.com.pa, me interesa un diagnóstico gratis.',
 
