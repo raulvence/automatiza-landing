@@ -46,7 +46,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const reply = $input.first().json.choices[0].message.content;\nconst question = $('Webhook').first().json.body.message;\n\nreturn [{\n  json: {\n    reply,\n    question,\n    whatsappText: `💬 *Nueva consulta en automatiza.com.pa*\\n\\n*Pregunta:* ${question}\\n\\n*Respuesta IA:* ${reply}`\n  }\n}];"
+        "jsCode": "const reply = $input.first().json.choices[0].message.content;\nconst body = $('Webhook').first().json.body;\nconst question = body.message;\nconst name = body.name || 'Desconocido';\nconst whatsapp = body.whatsapp || 'No indicado';\n\nreturn [{\n  json: {\n    reply,\n    question,\n    whatsappText: `🔔 *Nuevo lead — automatiza.com.pa*\\n\\n👤 *Nombre:* ${name}\\n📱 *WhatsApp:* ${whatsapp}\\n\\n💬 *Pregunta:* ${question}\\n\\n🤖 *Respuesta IA:* ${reply}`\n  }\n}];"
       },
       "id": "node-format",
       "name": "Formatear",

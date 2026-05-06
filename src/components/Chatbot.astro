@@ -1,5 +1,5 @@
 ---
-import { SITE } from '~/config';
+import { SITE, WHATSAPP_LINK } from '~/config';
 ---
 
 <section id="chat" class="border-t border-line bg-surface">
@@ -26,50 +26,51 @@ import { SITE } from '~/config';
     <!-- Terminal window -->
     <div class="relative max-w-3xl">
       <div class="terminal-glow" aria-hidden="true"></div>
-    <div class="relative border border-line bg-bg font-mono text-sm" data-webhook={SITE.chatWebhook}>
+      <div
+        class="relative border border-line bg-bg font-mono text-sm"
+        data-webhook={SITE.chatWebhook}
+        data-whatsapp={WHATSAPP_LINK}
+      >
 
-      <!-- Terminal title bar -->
-      <div class="border-b border-line px-4 py-2.5 flex items-center gap-3">
-        <div class="flex gap-1.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-accent" style="opacity:0.7"></span>
+        <!-- Title bar -->
+        <div class="border-b border-line px-4 py-2.5 flex items-center gap-3">
+          <div class="flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-accent" style="opacity:0.7"></span>
+          </div>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-muted ml-1">automatiza — asistente ia</span>
+          <span class="ml-auto flex items-center gap-1.5 text-[10px] text-accent">
+            <span class="live-dot" style="width:5px;height:5px;"></span>
+            ONLINE
+          </span>
         </div>
-        <span class="text-[10px] uppercase tracking-[0.2em] text-muted ml-1">automatiza — asistente ia</span>
-        <span class="ml-auto flex items-center gap-1.5 text-[10px] text-accent">
-          <span class="live-dot" style="width:5px;height:5px;"></span>
-          ONLINE
-        </span>
-      </div>
 
-      <!-- Log de mensajes -->
-      <div id="chat-log" class="px-5 py-5 space-y-3 min-h-[220px] max-h-[360px] overflow-y-auto">
-        <div class="text-muted">$ automatiza --chat</div>
-        <div class="text-ink">
-          <span class="text-accent">→</span> Hola. Soy el asistente de Automatiza. ¿En qué puedo ayudarte?
+        <!-- Log -->
+        <div id="chat-log" class="px-5 py-5 space-y-3 min-h-[220px] max-h-[360px] overflow-y-auto">
+          <div class="text-muted">$ automatiza --chat --init</div>
+          <div><span class="text-accent">→</span> <span class="text-accent">Hola. Antes de empezar, ¿cómo te llamo?</span></div>
         </div>
-        <div class="text-muted text-[11px]">// pregunta sobre servicios, precios o plazos</div>
-      </div>
 
-      <!-- Input -->
-      <div class="border-t border-line px-5 py-3 flex items-center gap-3">
-        <span class="text-accent select-none">›</span>
-        <input
-          id="chat-input"
-          type="text"
-          placeholder="escribe tu pregunta..."
-          autocomplete="off"
-          class="flex-1 bg-transparent text-ink placeholder-dim outline-none text-sm font-mono"
-        />
-        <button
-          id="chat-send"
-          class="text-[10px] uppercase tracking-[0.15em] text-accent hover:text-ink border border-line hover:border-accent px-3 py-1.5 transition-all duration-300"
-        >
-          enviar
-        </button>
-      </div>
+        <!-- Input -->
+        <div class="border-t border-line px-5 py-3 flex items-center gap-3">
+          <span class="text-accent select-none">›</span>
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="tu nombre..."
+            autocomplete="off"
+            class="flex-1 bg-transparent text-ink placeholder-dim outline-none text-sm font-mono"
+          />
+          <button
+            id="chat-send"
+            class="text-[10px] uppercase tracking-[0.15em] text-accent hover:text-ink border border-line hover:border-accent px-3 py-1.5 transition-all duration-300"
+          >
+            enter
+          </button>
+        </div>
 
-    </div>
+      </div>
     </div>
 
     <p class="font-mono text-[11px] text-dim mt-4">
@@ -79,19 +80,59 @@ import { SITE } from '~/config';
   </div>
 </section>
 
+<style>
+  .typing-dots span {
+    animation: blink-dot 1.2s infinite;
+    opacity: 0;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink-dot {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+  }
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-whatsapp:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+</style>
+
 <script>
   const terminal = document.querySelector('[data-webhook]') as HTMLElement;
   const webhookUrl = terminal?.dataset.webhook ?? '/api/chat';
+  const whatsappUrl = terminal?.dataset.whatsapp ?? '#';
   const log = document.getElementById('chat-log') as HTMLElement;
   const input = document.getElementById('chat-input') as HTMLInputElement;
   const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
 
+  let state: 'name' | 'whatsapp' | 'chat' = 'name';
+  let leadName = '';
+  let leadWhatsapp = '';
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function appendLine(text: string, type: 'user' | 'bot' | 'system') {
     const div = document.createElement('div');
     if (type === 'user') {
-      div.innerHTML = `<span class="text-muted">›</span> <span class="text-ink">${escapeHtml(text)}</span>`;
+      div.innerHTML = `<span class="text-muted">›</span> <span style="color:#fff">${escapeHtml(text)}</span>`;
     } else if (type === 'bot') {
-      div.innerHTML = `<span class="text-accent">→</span> <span class="text-ink">${escapeHtml(text)}</span>`;
+      div.innerHTML = `<span class="text-accent">→</span> <span class="text-accent">${escapeHtml(text)}</span>`;
     } else {
       div.className = 'text-muted text-[11px]';
       div.textContent = text;
@@ -100,28 +141,87 @@ import { SITE } from '~/config';
     log.scrollTop = log.scrollHeight;
   }
 
-  function escapeHtml(str: string) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  function appendWhatsAppButton() {
+    const div = document.createElement('div');
+    div.innerHTML = `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">→ Contactar por WhatsApp</a>`;
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
   }
 
-  async function sendMessage() {
-    const msg = input.value.trim();
-    if (!msg) return;
+  function showTyping(): HTMLElement {
+    const div = document.createElement('div');
+    div.id = 'typing-indicator';
+    div.innerHTML = `<span class="text-accent">→</span> <span class="text-accent typing-dots"><span>.</span><span>.</span><span>.</span></span>`;
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    return div;
+  }
+
+  function removeTyping() {
+    document.getElementById('typing-indicator')?.remove();
+  }
+
+  function delay(ms: number) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async function botReply(text: string, ms = 900) {
+    showTyping();
+    await delay(ms);
+    removeTyping();
+    appendLine(text, 'bot');
+  }
+
+  async function handleInput() {
+    const val = input.value.trim();
+    if (!val) return;
     input.value = '';
     sendBtn.disabled = true;
-    sendBtn.textContent = '...';
 
-    appendLine(msg, 'user');
+    if (state === 'name') {
+      leadName = val;
+      appendLine(val, 'user');
+      await botReply(`Hola, ${leadName}. ¿Y tu número de WhatsApp para darte seguimiento?`);
+      input.placeholder = 'tu WhatsApp (ej: 50766...)';
+      sendBtn.disabled = false;
+      state = 'whatsapp';
+      return;
+    }
+
+    if (state === 'whatsapp') {
+      leadWhatsapp = val;
+      appendLine(val, 'user');
+      await botReply(`Listo, ${leadName}. ¿En qué puedo ayudarte?`, 700);
+      appendLine('// pregunta sobre servicios, precios o plazos', 'system');
+      input.placeholder = 'escribe tu pregunta...';
+      sendBtn.textContent = 'enviar';
+      sendBtn.disabled = false;
+      state = 'chat';
+      return;
+    }
+
+    // Chat mode
+    appendLine(val, 'user');
+    showTyping();
+    sendBtn.textContent = '...';
 
     try {
       const res = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg }),
+        body: JSON.stringify({ message: val, name: leadName, whatsapp: leadWhatsapp }),
       });
       const data = await res.json();
-      appendLine(data.reply ?? 'Sin respuesta.', 'bot');
+      removeTyping();
+
+      const raw: string = data.reply ?? 'Sin respuesta.';
+      const showContact = raw.includes('[CONTACTO]');
+      const cleanReply = raw.replace('[CONTACTO]', '').trim();
+
+      appendLine(cleanReply, 'bot');
+      if (showContact) appendWhatsAppButton();
     } catch {
+      removeTyping();
       appendLine('// error de conexión', 'system');
     }
 
@@ -130,8 +230,6 @@ import { SITE } from '~/config';
     input.focus();
   }
 
-  sendBtn.addEventListener('click', sendMessage);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') sendMessage();
-  });
+  sendBtn.addEventListener('click', handleInput);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleInput(); });
 </script>
