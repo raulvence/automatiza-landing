@@ -1,0 +1,108 @@
+---
+const projects = [
+  {
+    cmd: 'panamaendirecto.com',
+    type: 'Medio digital',
+    stack: 'WordPress · n8n · X API',
+    metrics: [
+      { label: 'Posts auto-publicados/mes', value: '200+' },
+      { label: 'Tráfico orgánico', value: 'Activo' },
+      { label: 'SEO Schema', value: 'NewsArticle' },
+    ],
+    body: 'Workflow n8n que detecta nuevos posts en WordPress, formatea para X (Twitter) y publica vía API. SEO técnico avanzado con NewsArticle schema y feed para Google Publisher Center.',
+    link: 'https://panamaendirecto.com',
+  },
+  {
+    cmd: 'arcamediaendirecto.com',
+    type: 'Transmisión en vivo',
+    stack: 'AWS Lambda · IVS · Step Functions',
+    metrics: [
+      { label: 'Pipeline detection', value: '< 30s' },
+      { label: 'Streams por semana', value: '12' },
+      { label: 'Storage', value: 'S3 + IVS' },
+    ],
+    body: 'Pipeline AWS que detecta cuándo está activo el live de YouTube y actualiza WordPress sin intervención manual. Grabación automática de programas con conversión HLS → MP4.',
+    link: 'https://arcamediaendirecto.com',
+  },
+];
+---
+
+<section id="trabajo" class="border-t border-line bg-surface">
+  <div class="container-narrow py-24 md:py-32">
+
+    <!-- Section header -->
+    <div class="mb-20 md:mb-24">
+      <p class="label-mono mb-5">
+        <span class="text-accent">§ 02</span> &nbsp; Trabajo en producción
+      </p>
+      <h2 class="font-display font-bold tracking-tightest leading-[0.95] mb-8"
+          style="font-size: clamp(2.25rem, 5.5vw, 4.5rem);">
+        No son demos.<br />
+        <span class="italic font-medium text-accent-dim">Están corriendo ahora.</span>
+      </h2>
+      <p class="text-muted text-lg max-w-2xl leading-relaxed">
+        Cada uno de estos sistemas está en producción y bajo mi mantenimiento. Click en el nombre para verlos en vivo.
+      </p>
+    </div>
+
+    <!-- Lista terminal-style -->
+    <div class="space-y-px bg-line">
+      {projects.map((p, i) => (
+        <article class="bg-surface group hover:bg-elevated transition-colors duration-500">
+          <div class="grid md:grid-cols-12 gap-6 p-7 md:p-9">
+
+            <!-- Comando + tipo -->
+            <div class="md:col-span-4">
+              <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-3">
+                $ deploy / {String(i + 1).padStart(2, '0')}
+              </div>
+              <h3 class="font-display font-bold text-2xl md:text-3xl tracking-tighter leading-tight mb-2">
+                {p.link ? (
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-accent transition-colors inline-flex items-center gap-2 group/link"
+                  >
+                    {p.cmd}
+                    <span class="text-base text-accent-dim group-hover/link:translate-x-1 group-hover/link:translate-y-[-1px] transition-transform inline-block">↗</span>
+                  </a>
+                ) : (
+                  <span>{p.cmd}</span>
+                )}
+              </h3>
+              <p class="font-mono text-xs text-accent-dim">// {p.type}</p>
+            </div>
+
+            <!-- Body -->
+            <div class="md:col-span-5">
+              <p class="text-ink/80 leading-relaxed mb-4">
+                {p.body}
+              </p>
+              <div class="font-mono text-[11px] text-muted">
+                stack: <span class="text-ink/60">{p.stack}</span>
+              </div>
+            </div>
+
+            <!-- Métricas -->
+            <div class="md:col-span-3 space-y-2.5 md:border-l md:border-line md:pl-6">
+              {p.metrics.map((m) => (
+                <div class="flex items-baseline justify-between gap-3 font-mono text-xs">
+                  <span class="text-muted">{m.label}</span>
+                  <span class="text-accent tabular-nums">{m.value}</span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Footnote -->
+    <p class="font-mono text-[11px] text-dim mt-8">
+      // 2 sistemas listados · más casos disponibles bajo NDA
+    </p>
+
+  </div>
+</section>

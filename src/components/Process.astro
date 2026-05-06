@@ -1,0 +1,100 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Diagnóstico gratis',
+    duration: '30 min',
+    body: 'Te pregunto qué procesos te están comiendo el tiempo. Te digo cuáles se pueden automatizar y cuáles no. Sin venta dura.',
+  },
+  {
+    num: '02',
+    title: 'Propuesta concreta',
+    duration: '48 horas',
+    body: 'Plan con alcance, tiempo y precio fijo. Sin sorpresas, sin "depende".',
+  },
+  {
+    num: '03',
+    title: 'Implementación',
+    duration: '1–3 semanas',
+    body: 'Te entrego cada pieza funcionando. Tú la pruebas. Pagas por avance, no por adelantado completo.',
+  },
+  {
+    num: '04',
+    title: 'Soporte mensual',
+    duration: 'Opcional',
+    body: 'Si quieres que yo lo mantenga vivo, retainer mensual desde $150. Si prefieres independencia, te dejo todo documentado.',
+  },
+];
+---
+
+<section id="proceso" class="border-t border-line">
+  <div class="container-narrow py-24 md:py-32">
+
+    <!-- Section header -->
+    <div class="mb-20 md:mb-24 max-w-3xl">
+      <p class="label-mono mb-5">
+        <span class="text-accent">§ 03</span> &nbsp; Proceso
+      </p>
+      <h2 class="font-display font-bold tracking-tightest leading-[0.95]"
+          style="font-size: clamp(2.25rem, 5.5vw, 4.5rem);">
+        De aquí<br />
+        <span class="italic font-medium text-accent-dim">a producción.</span>
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+
+      <!-- Línea horizontal de fondo (desktop) -->
+      <div class="hidden lg:block absolute top-[60px] left-0 right-0 h-px bg-line" aria-hidden="true"></div>
+      <!-- Línea de progreso animada -->
+      <div class="hidden lg:block absolute top-[60px] left-0 h-px bg-accent" style="width: 100%; transform-origin: left; animation: progress 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;" aria-hidden="true"></div>
+
+      <div class="grid lg:grid-cols-4 gap-10 lg:gap-6">
+        {steps.map((step, i) => (
+          <div class="relative">
+
+            <!-- Número grande arriba (desktop) -->
+            <div class="hidden lg:flex items-center justify-center mb-12 relative">
+              <span
+                class="font-mono text-2xl text-accent bg-bg px-3 py-1 relative z-10"
+                style={`animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.4 + i * 0.15}s both;`}
+              >
+                {step.num}
+              </span>
+              <!-- Punto en la línea -->
+              <span class="absolute top-1/2 left-1/2 w-2 h-2 bg-accent rounded-full -translate-x-1/2 -translate-y-1/2 z-0" style={`animation: countUp 0.4s ease-out ${0.6 + i * 0.15}s both;`}></span>
+            </div>
+
+            <!-- Versión mobile: número inline -->
+            <div class="lg:hidden font-mono text-3xl text-accent mb-3">
+              {step.num}
+            </div>
+
+            <!-- Title + duration -->
+            <h3 class="font-display font-bold text-2xl tracking-tighter leading-tight mb-2">
+              {step.title}
+            </h3>
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-accent-dim mb-4">
+              {step.duration}
+            </p>
+
+            <!-- Body -->
+            <p class="text-muted leading-relaxed text-[15px]">
+              {step.body}
+            </p>
+
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @keyframes progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+</style>

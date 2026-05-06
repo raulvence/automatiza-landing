@@ -1,0 +1,96 @@
+---
+import { SITE, WHATSAPP_LINK } from '~/config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-bg">
+
+  <!-- Bloque principal -->
+  <div class="container-narrow py-16 grid md:grid-cols-12 gap-10">
+
+    <!-- Brand -->
+    <div class="md:col-span-5">
+      <a href="/" class="flex items-center gap-2.5 mb-5" aria-label="Automatiza inicio">
+        <span class="live-dot"></span>
+        <span class="font-display font-semibold text-base tracking-tighter">automatiza</span>
+        <span class="font-mono text-xs text-muted">.com.pa</span>
+      </a>
+      <p class="text-muted text-sm max-w-sm leading-relaxed mb-6">
+        Automatización con IA para PYMEs en Panamá. Operado de forma independiente desde Ciudad de Panamá.
+      </p>
+      <div class="font-mono text-[11px] text-dim">
+        <div>session: <span class="text-muted">0x{Math.random().toString(16).slice(2, 10)}</span></div>
+        <div>region: <span class="text-muted">pa-central-1</span></div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="md:col-span-3">
+      <p class="label-mono mb-5">Contacto</p>
+      <ul class="space-y-3 text-sm">
+        <li>
+          <a href={`mailto:${SITE.email}`} class="text-ink hover:text-accent transition-colors inline-flex items-center gap-2 group">
+            <span class="text-accent-dim group-hover:text-accent transition-colors">→</span>
+            {SITE.email}
+          </a>
+        </li>
+        <li>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink hover:text-accent transition-colors inline-flex items-center gap-2 group"
+          >
+            <span class="text-accent-dim group-hover:text-accent transition-colors">→</span>
+            WhatsApp Business
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Servicios -->
+    <div class="md:col-span-2">
+      <p class="label-mono mb-5">Servicios</p>
+      <ul class="space-y-3 text-sm">
+        <li><a href="#servicios" class="text-ink hover:text-accent transition-colors">Chatbots IA</a></li>
+        <li><a href="#servicios" class="text-ink hover:text-accent transition-colors">Automatización</a></li>
+        <li><a href="#servicios" class="text-ink hover:text-accent transition-colors">Webs & Plugins</a></li>
+      </ul>
+    </div>
+
+    <!-- Status -->
+    <div class="md:col-span-2">
+      <p class="label-mono mb-5">Sistema</p>
+      <ul class="space-y-3 text-sm font-mono text-xs">
+        <li class="flex items-center gap-2">
+          <span class="live-dot" style="width: 6px; height: 6px;"></span>
+          <span class="text-muted">all systems</span>
+        </li>
+        <li class="text-muted">
+          uptime: <span class="text-accent-dim">99.9%</span>
+        </li>
+        <li class="text-muted">
+          v2.6.0
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Status bar inferior tipo IDE -->
+  <div class="border-t border-line bg-surface">
+    <div class="container-narrow py-3 flex flex-col sm:flex-row justify-between gap-3 font-mono text-[10px] text-muted uppercase tracking-[0.15em]">
+      <span>© {year} {SITE.name} · Panamá · {SITE.location}</span>
+      <span class="flex items-center gap-4">
+        <span>es-PA</span>
+        <span>UTC-5</span>
+        <span class="flex items-center gap-1.5">
+          <span class="live-dot" style="width: 5px; height: 5px;"></span>
+          live
+        </span>
+      </span>
+    </div>
+  </div>
+
+</footer>

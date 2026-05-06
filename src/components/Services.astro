@@ -1,0 +1,107 @@
+---
+const services = [
+  {
+    num: '01',
+    title: 'Chatbots con IA',
+    subtitle: 'WhatsApp Business + Claude',
+    body: 'Tus clientes preguntan lo mismo todo el día. Monto un asistente que responde 24/7 en tu nombre, agenda citas, cotiza, y te pasa solo los casos que valen la pena.',
+    price: 'Desde $600',
+    note: '+ mensualidad',
+    tags: ['WhatsApp Business API', 'Claude', 'n8n'],
+  },
+  {
+    num: '02',
+    title: 'Automatización',
+    subtitle: 'de procesos repetitivos',
+    body: 'Si haces lo mismo dos veces a la semana, se puede automatizar. Reportes, sincronización entre sistemas, alertas, scrapers, integración WhatsApp ↔ tu CRM.',
+    price: 'Desde $400',
+    note: 'por flujo',
+    tags: ['n8n', 'Python', 'AWS Lambda'],
+  },
+  {
+    num: '03',
+    title: 'Webs & Plugins',
+    subtitle: 'apps, sitios y WordPress',
+    body: 'Diseño y desarrollo de sitios, apps web y plugins de WordPress que conectan con tus flujos de automatización. Tu presencia digital funciona como parte del sistema, no aparte.',
+    price: 'Desde $800',
+    note: 'proyecto',
+    tags: ['WordPress', 'Astro', 'PHP', 'n8n'],
+  },
+];
+---
+
+<section id="servicios" class="border-t border-line">
+  <div class="container-narrow py-24 md:py-32">
+
+    <!-- Section header -->
+    <div class="grid md:grid-cols-12 gap-8 mb-20 md:mb-24 items-end">
+      <div class="md:col-span-7">
+        <p class="label-mono mb-5">
+          <span class="text-accent">§ 01</span> &nbsp; Servicios
+        </p>
+        <h2 class="font-display font-bold tracking-tightest leading-[0.95]"
+            style="font-size: clamp(2.25rem, 5.5vw, 4.5rem);">
+          Tres máquinas<br />
+          <span class="italic font-medium text-accent-dim">que trabajan por ti.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-5 md:pl-8">
+        <p class="text-muted text-lg leading-relaxed">
+          No vendo "transformación digital". Vendo automatizaciones específicas que te devuelven horas a la semana desde el día uno.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grid de servicios -->
+    <div class="grid md:grid-cols-3 gap-px bg-line border border-line">
+      {services.map((s, i) => (
+        <article class="card-system bg-bg p-7 md:p-9 group">
+
+          <!-- Header del card: number + status -->
+          <div class="flex items-baseline justify-between mb-12">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+              service / {s.num}
+            </span>
+            <span class="flex items-center gap-1.5 font-mono text-[10px] text-accent">
+              <span class="live-dot" style="width: 5px; height: 5px;"></span>
+              ACTIVO
+            </span>
+          </div>
+
+          <!-- Title block -->
+          <h3 class="font-display font-bold text-3xl md:text-4xl tracking-tighter leading-[0.95] mb-2">
+            {s.title}
+          </h3>
+          <p class="font-mono text-xs text-accent-dim mb-7">
+            // {s.subtitle}
+          </p>
+
+          <!-- Body -->
+          <p class="text-muted leading-relaxed mb-8 text-[15px]">
+            {s.body}
+          </p>
+
+          <!-- Tags técnicos -->
+          <div class="flex flex-wrap gap-2 mb-10">
+            {s.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+
+          <!-- Pricing footer -->
+          <div class="border-t border-line pt-5 flex items-baseline justify-between">
+            <div>
+              <div class="font-display text-2xl font-semibold tracking-tighter">{s.price}</div>
+              <div class="font-mono text-[10px] uppercase tracking-wider text-muted mt-1">{s.note}</div>
+            </div>
+            <span class="font-mono text-xs text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+              activar →
+            </span>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

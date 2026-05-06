@@ -1,0 +1,60 @@
+---
+import '~/styles/global.css';
+import { SITE } from '~/config';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${SITE.name} — ${SITE.tagline}`,
+  description = SITE.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es-PA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_PA" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Theme color: dark cálido para coincidir con el bg -->
+    <meta name="theme-color" content="#1F1D17" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: SITE.name,
+      description: SITE.description,
+      url: SITE.url,
+      email: SITE.email,
+      areaServed: { '@type': 'Country', name: 'Panamá' },
+      serviceType: ['Automatización de procesos', 'Chatbots con IA', 'Facturación electrónica DGI'],
+    })} />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

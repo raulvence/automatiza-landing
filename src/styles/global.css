@@ -1,0 +1,268 @@
+/* ========================================================================
+   Fuentes — Google Fonts (free, comerciales)
+   - Bricolage Grotesque: display variable
+   - Geist: body
+   - Geist Mono: técnico
+   ======================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================================
+   Paleta OKLCH — calibrada perceptualmente, modo oscuro cálido
+   ======================================================================== */
+@layer base {
+  :root {
+    --bg: oklch(15% 0.012 90);
+    --surface: oklch(20% 0.014 90);
+    --elevated: oklch(24% 0.014 90);
+    --ink: oklch(96% 0.005 90);
+    --muted: oklch(62% 0.014 90);
+    --dim: oklch(45% 0.014 90);
+    --line: oklch(28% 0.014 90);
+    --accent: oklch(85% 0.22 130);
+    --accent-dim: oklch(70% 0.18 130);
+    --accent-glow: oklch(85% 0.22 130 / 0.25);
+    --warn: oklch(78% 0.16 50);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Geist', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'ss03', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Grid de fondo sutil — perceptible pero no invasivo */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, oklch(96% 0.005 90 / 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(96% 0.005 90 / 0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 90%);
+  }
+
+  /* Glow ambiental detrás del hero */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: 50%;
+    width: 80vw;
+    height: 60vh;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center,
+      oklch(85% 0.22 130 / 0.07) 0%,
+      transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(60px);
+  }
+
+  main, header, footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Scrollbar custom — sutil, en marca */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-dim);
+  }
+}
+
+/* ========================================================================
+   Componentes utilitarios
+   ======================================================================== */
+@layer components {
+  .container-narrow {
+    @apply max-w-[1280px] mx-auto px-6 md:px-10;
+  }
+
+  .label-mono {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-muted;
+  }
+
+  /* Botón principal — verde lima sólido, sombra de glow */
+  .btn-primary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 1rem 1.5rem;
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+      0 0 0 1px var(--accent-dim),
+      0 8px 24px -8px var(--accent-glow);
+  }
+  .btn-primary:hover {
+    background: var(--ink);
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px var(--ink),
+      0 12px 32px -8px var(--accent-glow),
+      0 0 40px -8px var(--accent-glow);
+  }
+
+  /* Botón secundario — outline */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-line bg-transparent text-ink px-6 py-4 font-medium tracking-tighter transition-all duration-300;
+  }
+  .btn-secondary:hover {
+    border-color: oklch(96% 0.005 90 / 0.5);
+    transform: translateY(-1px);
+  }
+
+  /* Tag/badge técnico */
+  .tag {
+    @apply font-mono text-[10px] uppercase tracking-[0.15em] text-muted border border-line px-2 py-1;
+  }
+
+  /* Card "live system" — surface con borde, hover con accent */
+  .card-system {
+    @apply bg-surface border border-line transition-all duration-500 relative overflow-hidden;
+  }
+  .card-system:hover {
+    border-color: var(--accent-dim);
+  }
+  .card-system::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-system:hover::before {
+    width: 100%;
+  }
+
+  /* Indicador "live" — punto pulsante */
+  .live-dot {
+    @apply inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow;
+    box-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .reveal-1 { animation-delay: 0.05s; }
+  .reveal-2 { animation-delay: 0.18s; }
+  .reveal-3 { animation-delay: 0.32s; }
+  .reveal-4 { animation-delay: 0.46s; }
+  .reveal-5 { animation-delay: 0.6s; }
+  .reveal-6 { animation-delay: 0.74s; }
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cursor blink (terminal) */
+.cursor-blink::after {
+  content: '▊';
+  color: var(--accent);
+  margin-left: 2px;
+  animation: blink 1.05s step-end infinite;
+}
+
+/* Glitch sutil para títulos especiales */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+.glitch:hover::before {
+  animation: glitchTop 0.4s linear;
+  color: var(--accent);
+  clip-path: inset(0 0 60% 0);
+  transform: translate(-1px, -1px);
+  opacity: 0.8;
+}
+.glitch:hover::after {
+  animation: glitchBottom 0.4s linear;
+  color: var(--warn);
+  clip-path: inset(60% 0 0 0);
+  transform: translate(1px, 1px);
+  opacity: 0.8;
+}
+@keyframes glitchTop {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, -1px); }
+  40% { transform: translate(2px, 0); }
+  60% { transform: translate(-1px, 1px); }
+}
+@keyframes glitchBottom {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(2px, 1px); }
+  40% { transform: translate(-2px, 0); }
+  60% { transform: translate(1px, -1px); }
+}
+
+/* prefers-reduced-motion: respeta preferencia del usuario */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,197 @@
+---
+import { SITE, WHATSAPP_LINK } from '~/config';
+---
+
+<section class="container-narrow pt-16 md:pt-24 pb-32 md:pb-40 relative">
+
+  <!-- Eyebrow / system status -->
+  <div class="flex items-center gap-3 mb-10 reveal reveal-1">
+    <span class="live-dot"></span>
+    <p class="label-mono">
+      Sistema en línea · Panamá · v2.6
+    </p>
+  </div>
+
+  <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+    <!-- ============== Lado izquierdo: copy ============== -->
+    <div class="lg:col-span-7">
+
+      <!-- Headline gigante -->
+      <h1 class="font-display font-bold leading-[0.92] tracking-tightest mb-8 reveal reveal-2"
+          style="font-size: clamp(2.75rem, 7.5vw, 6.5rem);">
+        Tu operación,<br />
+        <span class="text-accent italic font-medium">en piloto automático.</span>
+      </h1>
+
+      <!-- Sub punzante -->
+      <p class="text-xl md:text-2xl text-ink/90 mb-6 leading-tight reveal reveal-3 max-w-2xl">
+        En días. No en meses.
+      </p>
+
+      <!-- Body -->
+      <p class="text-base md:text-lg text-muted max-w-xl leading-relaxed mb-10 reveal reveal-4">
+        Implemento flujos automáticos, chatbots con inteligencia artificial y facturación electrónica DGI para PYMEs panameñas. Sin contratos largos. Resultados medibles desde el primer mes.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-3 reveal reveal-5">
+        <a href={SITE.calLink} target="_blank" rel="noopener noreferrer" class="btn-primary group">
+          <span>Diagnóstico gratis · 30 min</span>
+          <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <span>WhatsApp directo</span>
+        </a>
+      </div>
+
+      <!-- Trust indicators -->
+      <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted reveal reveal-6">
+        <span class="flex items-center gap-2">
+          <span class="text-accent">✓</span> Sin contratos largos
+        </span>
+        <span class="flex items-center gap-2">
+          <span class="text-accent">✓</span> Pago por avance
+        </span>
+        <span class="flex items-center gap-2">
+          <span class="text-accent">✓</span> Soporte directo
+        </span>
+      </div>
+
+    </div>
+
+    <!-- ============== Lado derecho: live system viz ============== -->
+    <aside class="lg:col-span-5 reveal reveal-4" aria-label="Visualización de sistema activo">
+
+      <div class="card-system p-6 md:p-7 font-mono text-xs">
+
+        <!-- Header del panel -->
+        <div class="flex items-center justify-between pb-4 border-b border-line">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-warn"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-muted/50"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+          </div>
+          <span class="text-muted">automatiza ~ live</span>
+        </div>
+
+        <!-- Métricas vivas -->
+        <div class="grid grid-cols-3 gap-2 py-5 border-b border-line">
+          <div>
+            <div class="text-muted text-[10px] uppercase tracking-wider mb-1">Procesos</div>
+            <div class="text-ink text-xl font-display font-semibold tabular-nums" data-counter="247" data-target="1247">247</div>
+          </div>
+          <div>
+            <div class="text-muted text-[10px] uppercase tracking-wider mb-1">Uptime</div>
+            <div class="text-accent text-xl font-display font-semibold tabular-nums">99.9%</div>
+          </div>
+          <div>
+            <div class="text-muted text-[10px] uppercase tracking-wider mb-1">Latencia</div>
+            <div class="text-ink text-xl font-display font-semibold tabular-nums">12ms</div>
+          </div>
+        </div>
+
+        <!-- Workflow SVG animado -->
+        <div class="py-5 border-b border-line">
+          <div class="text-muted text-[10px] uppercase tracking-wider mb-3">Flujo activo</div>
+          <svg viewBox="0 0 320 80" class="w-full h-20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Líneas conectoras -->
+            <line x1="50" y1="40" x2="160" y2="40"
+                  stroke="oklch(28% 0.014 90)" stroke-width="1.5" />
+            <line x1="50" y1="40" x2="160" y2="40"
+                  stroke="oklch(85% 0.22 130)" stroke-width="1.5"
+                  stroke-dasharray="6 6"
+                  stroke-dashoffset="120">
+              <animate attributeName="stroke-dashoffset" from="120" to="0" dur="2.4s" repeatCount="indefinite" />
+            </line>
+
+            <line x1="160" y1="40" x2="270" y2="40"
+                  stroke="oklch(28% 0.014 90)" stroke-width="1.5" />
+            <line x1="160" y1="40" x2="270" y2="40"
+                  stroke="oklch(85% 0.22 130)" stroke-width="1.5"
+                  stroke-dasharray="6 6"
+                  stroke-dashoffset="120">
+              <animate attributeName="stroke-dashoffset" from="120" to="0" dur="2.4s" begin="0.6s" repeatCount="indefinite" />
+            </line>
+
+            <!-- Nodo 1: Input -->
+            <g>
+              <circle cx="50" cy="40" r="20" fill="oklch(20% 0.014 90)" stroke="oklch(85% 0.22 130)" stroke-width="1.5" />
+              <text x="50" y="44" font-family="Geist Mono" font-size="11" fill="oklch(96% 0.005 90)" text-anchor="middle">in</text>
+            </g>
+
+            <!-- Nodo 2: AI/Procesamiento -->
+            <g>
+              <circle cx="160" cy="40" r="22" fill="oklch(20% 0.014 90)" stroke="oklch(85% 0.22 130)" stroke-width="1.5">
+                <animate attributeName="r" values="22;24;22" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <text x="160" y="44" font-family="Geist Mono" font-size="11" fill="oklch(85% 0.22 130)" text-anchor="middle">AI</text>
+            </g>
+
+            <!-- Nodo 3: Output -->
+            <g>
+              <circle cx="270" cy="40" r="20" fill="oklch(20% 0.014 90)" stroke="oklch(85% 0.22 130)" stroke-width="1.5" />
+              <text x="270" y="44" font-family="Geist Mono" font-size="11" fill="oklch(96% 0.005 90)" text-anchor="middle">out</text>
+            </g>
+
+            <!-- Pulse traveling 1 -->
+            <circle r="3" fill="oklch(85% 0.22 130)">
+              <animateMotion dur="2.4s" repeatCount="indefinite" path="M 50 40 L 160 40" />
+            </circle>
+            <!-- Pulse traveling 2 -->
+            <circle r="3" fill="oklch(85% 0.22 130)">
+              <animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite" path="M 160 40 L 270 40" />
+            </circle>
+          </svg>
+        </div>
+
+        <!-- Terminal típica -->
+        <div class="pt-5 space-y-1.5 leading-relaxed">
+          <div class="text-muted">$ automatiza --status</div>
+          <div class="text-ink"><span class="text-accent">→</span> chatbot.whatsapp <span class="text-muted">[active]</span></div>
+          <div class="text-ink"><span class="text-accent">→</span> dgi.factura.flow <span class="text-muted">[running]</span></div>
+          <div class="text-ink"><span class="text-accent">→</span> reports.daily <span class="text-muted">[scheduled]</span></div>
+          <div class="text-muted">$ <span class="cursor-blink"></span></div>
+        </div>
+
+      </div>
+
+      <!-- Footnote técnico debajo del panel -->
+      <p class="font-mono text-[10px] text-dim mt-3 pl-1">
+        // datos representativos · panel demo
+      </p>
+
+    </aside>
+
+  </div>
+
+</section>
+
+<!-- Counter animation script -->
+<script>
+  const counters = document.querySelectorAll('[data-counter]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const start = parseInt(el.dataset.counter || '0');
+        const target = parseInt(el.dataset.target || '0');
+        const duration = 1800;
+        const startTime = performance.now();
+
+        const tick = (now: number) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(start + (target - start) * eased);
+          el.textContent = value.toLocaleString('es-PA');
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => observer.observe(c));
+</script>

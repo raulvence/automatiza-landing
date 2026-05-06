@@ -1,0 +1,43 @@
+---
+import { SITE, WHATSAPP_LINK } from '~/config';
+---
+
+<header class="border-b border-line bg-bg/60 backdrop-blur-xl sticky top-0 z-40">
+  <div class="container-narrow flex items-center justify-between h-14">
+
+    <!-- Brand -->
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="Automatiza inicio">
+      <span class="relative flex items-center">
+        <span class="live-dot"></span>
+      </span>
+      <span class="font-display font-semibold text-base tracking-tighter">automatiza</span>
+      <span class="font-mono text-xs text-muted hidden sm:inline">.com.pa</span>
+    </a>
+
+    <!-- Nav links desktop -->
+    <nav class="hidden md:flex items-center gap-7 text-sm">
+      <a href="#servicios" class="text-muted hover:text-ink transition-colors">Servicios</a>
+      <a href="#trabajo" class="text-muted hover:text-ink transition-colors">Trabajo</a>
+      <a href="#proceso" class="text-muted hover:text-ink transition-colors">Proceso</a>
+      <a
+        href={WHATSAPP_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-medium text-ink hover:text-accent transition-colors flex items-center gap-1.5"
+      >
+        Hablemos <span aria-hidden="true">→</span>
+      </a>
+    </nav>
+
+    <!-- Mobile CTA -->
+    <a
+      href={WHATSAPP_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="md:hidden text-sm font-medium text-accent flex items-center gap-1.5"
+    >
+      Hablemos <span aria-hidden="true">→</span>
+    </a>
+
+  </div>
+</header>

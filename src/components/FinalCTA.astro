@@ -1,0 +1,48 @@
+---
+import { SITE, WHATSAPP_LINK } from '~/config';
+---
+
+<section class="border-t border-line relative overflow-hidden">
+
+  <!-- Glow ambiental detrás -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] rounded-full"
+         style="background: radial-gradient(ellipse at center, oklch(85% 0.22 130 / 0.08) 0%, transparent 60%); filter: blur(60px);">
+    </div>
+  </div>
+
+  <div class="container-narrow py-32 md:py-48 relative">
+
+    <p class="label-mono mb-8">
+      <span class="text-accent">§ 04</span> &nbsp; Próximo paso
+    </p>
+
+    <h2 class="font-display font-bold tracking-tightest leading-[0.92] mb-10 max-w-5xl"
+        style="font-size: clamp(2.75rem, 8vw, 7.5rem);">
+      ¿Listo para dejar<br />
+      de hacer lo mismo<br />
+      <span class="italic font-medium text-accent">dos veces?</span>
+    </h2>
+
+    <p class="text-lg md:text-xl text-muted max-w-2xl mb-14 leading-relaxed">
+      Agenda 30 minutos. Te doy el diagnóstico, te digo qué se puede automatizar y qué no — sin compromiso.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-20">
+      <a href={SITE.calLink} target="_blank" rel="noopener noreferrer" class="btn-primary group">
+        <span>Agendar diagnóstico gratis</span>
+        <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+      </a>
+      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+        <span>O escríbeme por WhatsApp</span>
+      </a>
+    </div>
+
+    <!-- Decoración terminal -->
+    <div class="font-mono text-sm text-muted border-t border-line pt-8 max-w-md">
+      <div class="text-dim mb-1">$ automatiza --start-conversation</div>
+      <div><span class="text-accent">→</span> waiting for input<span class="cursor-blink"></span></div>
+    </div>
+
+  </div>
+</section>
