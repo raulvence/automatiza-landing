@@ -1,0 +1,137 @@
+---
+import { SITE } from '~/config';
+---
+
+<section id="chat" class="border-t border-line bg-surface">
+  <div class="container-narrow py-24 md:py-32">
+
+    <div class="grid md:grid-cols-12 gap-8 mb-16 items-end">
+      <div class="md:col-span-7">
+        <p class="label-mono mb-5">
+          <span class="text-accent">§ 04</span> &nbsp; Asistente
+        </p>
+        <h2 class="font-display font-bold tracking-tightest leading-[0.95]"
+            style="font-size: clamp(2.25rem, 5.5vw, 4.5rem);">
+          Pregúntame<br />
+          <span class="italic font-medium text-accent-dim">lo que necesitas saber.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-5 md:pl-8">
+        <p class="text-muted text-lg leading-relaxed">
+          ¿Cuánto cuesta automatizar X? ¿Cuánto tiempo tarda? Pregunta directo — respondo en segundos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Terminal window -->
+    <div class="relative max-w-3xl">
+      <div class="terminal-glow" aria-hidden="true"></div>
+    <div class="relative border border-line bg-bg font-mono text-sm" data-webhook={SITE.chatWebhook}>
+
+      <!-- Terminal title bar -->
+      <div class="border-b border-line px-4 py-2.5 flex items-center gap-3">
+        <div class="flex gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accent" style="opacity:0.7"></span>
+        </div>
+        <span class="text-[10px] uppercase tracking-[0.2em] text-muted ml-1">automatiza — asistente ia</span>
+        <span class="ml-auto flex items-center gap-1.5 text-[10px] text-accent">
+          <span class="live-dot" style="width:5px;height:5px;"></span>
+          ONLINE
+        </span>
+      </div>
+
+      <!-- Log de mensajes -->
+      <div id="chat-log" class="px-5 py-5 space-y-3 min-h-[220px] max-h-[360px] overflow-y-auto">
+        <div class="text-muted">$ automatiza --chat</div>
+        <div class="text-ink">
+          <span class="text-accent">→</span> Hola. Soy el asistente de Automatiza. ¿En qué puedo ayudarte?
+        </div>
+        <div class="text-muted text-[11px]">// pregunta sobre servicios, precios o plazos</div>
+      </div>
+
+      <!-- Input -->
+      <div class="border-t border-line px-5 py-3 flex items-center gap-3">
+        <span class="text-accent select-none">›</span>
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="escribe tu pregunta..."
+          autocomplete="off"
+          class="flex-1 bg-transparent text-ink placeholder-dim outline-none text-sm font-mono"
+        />
+        <button
+          id="chat-send"
+          class="text-[10px] uppercase tracking-[0.15em] text-accent hover:text-ink border border-line hover:border-accent px-3 py-1.5 transition-all duration-300"
+        >
+          enviar
+        </button>
+      </div>
+
+    </div>
+    </div>
+
+    <p class="font-mono text-[11px] text-dim mt-4">
+      // respuestas generadas por IA · pueden contener errores · confirma detalles con hola@automatiza.com.pa
+    </p>
+
+  </div>
+</section>
+
+<script>
+  const terminal = document.querySelector('[data-webhook]') as HTMLElement;
+  const webhookUrl = terminal?.dataset.webhook ?? '/api/chat';
+  const log = document.getElementById('chat-log') as HTMLElement;
+  const input = document.getElementById('chat-input') as HTMLInputElement;
+  const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
+
+  function appendLine(text: string, type: 'user' | 'bot' | 'system') {
+    const div = document.createElement('div');
+    if (type === 'user') {
+      div.innerHTML = `<span class="text-muted">›</span> <span class="text-ink">${escapeHtml(text)}</span>`;
+    } else if (type === 'bot') {
+      div.innerHTML = `<span class="text-accent">→</span> <span class="text-ink">${escapeHtml(text)}</span>`;
+    } else {
+      div.className = 'text-muted text-[11px]';
+      div.textContent = text;
+    }
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  async function sendMessage() {
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    sendBtn.disabled = true;
+    sendBtn.textContent = '...';
+
+    appendLine(msg, 'user');
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg }),
+      });
+      const data = await res.json();
+      appendLine(data.reply ?? 'Sin respuesta.', 'bot');
+    } catch {
+      appendLine('// error de conexión', 'system');
+    }
+
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'enviar';
+    input.focus();
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script>

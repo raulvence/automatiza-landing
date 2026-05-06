@@ -26,6 +26,9 @@ export const SITE = {
 
   // Ubicación
   location: 'Ciudad de Panamá, Panamá',
+
+  // n8n webhook URL — reemplazar con la URL real de n8n Cloud una vez activo
+  chatWebhook: 'https://automatizapa.app.n8n.cloud/webhook/automatiza-chat',
 };
 
 export const WHATSAPP_LINK = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.whatsappMessage)}`;

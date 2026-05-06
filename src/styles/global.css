@@ -185,6 +185,17 @@
     box-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow);
   }
 
+  /* Terminal glow */
+  .terminal-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse 90% 70% at 50% 100%, oklch(85% 0.22 130 / 0.55), oklch(85% 0.22 130 / 0.15) 55%, transparent 75%);
+    filter: blur(28px);
+    animation: glow-pulse 4s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   /* Reveal animation */
   .reveal {
     opacity: 0;
@@ -204,6 +215,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes glow-pulse {
+  0%   { opacity: 0.6; transform: scaleX(0.95) translateY(4px); }
+  100% { opacity: 1;   transform: scaleX(1.05) translateY(-4px); }
 }
 
 /* Cursor blink (terminal) */
