@@ -18,7 +18,8 @@ export const SITE = {
     'Hola, vengo de automatiza.com.pa, me interesa un diagnóstico gratis.',
 
   // Cal.com — TODO: crear cuenta gratis en cal.com y reemplazar este link
-  calLink: 'https://cal.com/automatiza/diagnostico',
+  calLink: 'https://cal.com/raul-vence-lj1cij/30min',
+  calLinkShort: 'https://cal.com/raul-vence-lj1cij/15min',
 
   // Redes sociales — opcionales, mostrar en footer si existen
   linkedin: 'https://linkedin.com/company/automatiza-pa',
