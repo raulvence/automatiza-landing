@@ -55,6 +55,8 @@ const services = [
     tags: ['AWS Lambda', 'Python', 'Node.js', 'API Gateway'],
   },
 ];
+import { SITE } from '~/config';
+const waBase = `https://wa.me/${SITE.whatsapp}?text=`;
 ---
 
 <section id="servicios" class="border-t border-line">
@@ -74,7 +76,7 @@ const services = [
       </div>
       <div class="md:col-span-5 md:pl-8">
         <p class="text-muted text-lg leading-relaxed">
-          No vendo "transformación digital". Vendo automatizaciones específicas que te devuelven horas a la semana desde el día uno.
+          No vendemos "transformación digital". Vendemos automatizaciones específicas que te devuelven horas a la semana desde el día uno.
         </p>
       </div>
     </div>
@@ -121,9 +123,14 @@ const services = [
               <div class="font-display text-2xl font-semibold tracking-tighter">{s.price}</div>
               <div class="font-mono text-[10px] uppercase tracking-wider text-muted mt-1">{s.note}</div>
             </div>
-            <span class="font-mono text-xs text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+            <a
+              href={`${waBase}${encodeURIComponent(`Hola, vengo de automatiza.com.pa y me interesa el servicio: ${s.title}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs text-accent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1 hover:translate-x-0.5"
+            >
               activar →
-            </span>
+            </a>
           </div>
 
         </article>
