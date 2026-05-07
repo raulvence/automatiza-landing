@@ -12,13 +12,11 @@ export const SITE = {
   // Email
   email: 'hola@automatiza.com.pa',
 
-  // WhatsApp Business — TODO: reemplazar cuando tengas el chip
-  // Formato internacional sin + ni espacios. Panamá: 507XXXXXXXX
+  // WhatsApp Business activo +507 6335 8201
   whatsapp: '50763358201',
   whatsappMessage:
     'Hola, vengo de automatiza.com.pa, me interesa un diagnóstico gratis.',
 
-  // Cal.com — TODO: crear cuenta gratis en cal.com y reemplazar este link
   calLink: 'https://cal.com/raul-vence-lj1cij/30min',
   calLinkShort: 'https://cal.com/raul-vence-lj1cij/15min',
 
