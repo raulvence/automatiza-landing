@@ -2,7 +2,7 @@
 const projects = [
   {
     cmd: 'panamaendirecto.com',
-    type: 'Medio digital',
+    type: 'Medio digital automatizado',
     stack: 'WordPress · n8n · X API',
     metrics: [
       { label: 'Posts auto-publicados/mes', value: '200+' },
@@ -17,12 +17,80 @@ const projects = [
     type: 'Transmisión en vivo',
     stack: 'AWS Lambda · IVS · Step Functions',
     metrics: [
-      { label: 'Pipeline detection', value: '< 30s' },
+      { label: 'Detección de live', value: '< 30s' },
       { label: 'Streams por semana', value: '12' },
       { label: 'Storage', value: 'S3 + IVS' },
     ],
     body: 'Pipeline AWS que detecta cuándo está activo el live de YouTube y actualiza WordPress sin intervención manual. Grabación automática de programas con conversión HLS → MP4.',
     link: 'https://arcamediaendirecto.com',
+  },
+  {
+    cmd: 'pipeline-multimedia-ia',
+    type: 'Automatización de contenido',
+    stack: 'AWS Lambda · Transcribe · Claude Haiku · Nova Canvas · WordPress',
+    metrics: [
+      { label: 'Pasos automatizados', value: '6' },
+      { label: 'Tiempo total', value: '< 4 min' },
+      { label: 'Intervención humana', value: '0' },
+    ],
+    body: 'Pipeline completo: descarga audio de YouTube → transcripción automática → Claude Haiku genera post SEO + imagen con Nova Canvas → publica en WordPress con featured image. Cero intervención manual.',
+    link: null,
+    terminal: [
+      { text: '$ pipeline --run multimedia-ia', delay: 0, type: 'cmd' },
+      { text: '[1/6] Descargando audio de YouTube...', delay: 600, type: 'running' },
+      { text: '[1/6] Descargando audio de YouTube...     ✓  2.3MB · 4s', delay: 1400, type: 'done', replace: true },
+      { text: '[2/6] Transcribiendo con AWS Transcribe...', delay: 1800, type: 'running' },
+      { text: '[2/6] Transcribiendo con AWS Transcribe...  ✓  847 palabras', delay: 3000, type: 'done', replace: true },
+      { text: '[3/6] Generando contenido con Claude Haiku...', delay: 3400, type: 'running' },
+      { text: '[3/6] Generando contenido con Claude Haiku...  ✓  SEO score 98', delay: 5000, type: 'done', replace: true },
+      { text: '[4/6] Creando imagen con Nova Canvas...', delay: 5400, type: 'running' },
+      { text: '[4/6] Creando imagen con Nova Canvas...  ✓  1280×720px', delay: 7200, type: 'done', replace: true },
+      { text: '[5/6] Optimizando a WebP...', delay: 7600, type: 'running' },
+      { text: '[5/6] Optimizando a WebP...  ✓  340kb → 89kb', delay: 8400, type: 'done', replace: true },
+      { text: '[6/6] Publicando en WordPress...', delay: 8800, type: 'running' },
+      { text: '[6/6] Publicando en WordPress...  ✓  post_id: 4821', delay: 9800, type: 'done', replace: true },
+      { text: '', delay: 10200, type: 'blank' },
+      { text: '$ completado en 3m 42s · intervención humana: 0', delay: 10400, type: 'success' },
+    ],
+  },
+  {
+    cmd: 'acountathing',
+    type: 'App Android · Contabilidad DGI',
+    stack: 'Flutter · SQLite · Google ML Kit · DGI API',
+    metrics: [
+      { label: 'Plataformas', value: 'Android · iOS · Windows' },
+      { label: 'OCR', value: 'QR DGI + texto' },
+      { label: 'Exportación', value: 'Excel · PDF · CSV' },
+    ],
+    body: 'App offline-first para gestión de facturas y recibos. Captura con cámara, OCR automático, escaneo de códigos QR de la DGI panameña y sincronización con Google Drive.',
+    link: null,
+    screenshots: ['/apps/acountathing/1.jpg','/apps/acountathing/2.jpg','/apps/acountathing/3.jpg','/apps/acountathing/4.jpg','/apps/acountathing/5.jpg'],
+  },
+  {
+    cmd: 'el charlatan',
+    type: 'App Android · Juego social',
+    stack: 'Flutter · Hive · In-App Purchase',
+    metrics: [
+      { label: 'Versión', value: 'v1.3.5' },
+      { label: 'Estado', value: 'Play Store' },
+      { label: 'Plataformas', value: 'Android · iOS' },
+    ],
+    body: 'Juego social de roles y deducción para grupos. Multiperfil en el mismo dispositivo, funciona sin internet, sistema de compras internas y soporte multiidioma.',
+    link: null,
+    screenshots: ['/apps/charlatan/1.jpg','/apps/charlatan/2.jpg','/apps/charlatan/3.jpg','/apps/charlatan/4.jpg','/apps/charlatan/5.jpg'],
+  },
+  {
+    cmd: 'facturo',
+    type: 'App Android · Facturación',
+    stack: 'Flutter · SQLite · PDF · Biometría',
+    metrics: [
+      { label: 'Versión', value: 'v1.0.0' },
+      { label: 'Estado', value: 'Play Store' },
+      { label: 'Datos', value: '100% local' },
+    ],
+    body: 'App para generar facturas profesionales desde el celular en segundos. Firma digital con el dedo, exportación a PDF, compartir por WhatsApp. Todos los datos quedan en el dispositivo — sin servidores.',
+    link: null,
+    screenshots: ['/apps/facturo/1.jpg','/apps/facturo/2.jpg'],
   },
 ];
 ---
@@ -67,6 +135,24 @@ const projects = [
                     {p.cmd}
                     <span class="text-base text-accent-dim group-hover/link:translate-x-1 group-hover/link:translate-y-[-1px] transition-transform inline-block">↗</span>
                   </a>
+                ) : p.screenshots ? (
+                  <button
+                    class="hover:text-accent transition-colors inline-flex items-center gap-2 group/link text-left demo-trigger"
+                    data-screenshots={JSON.stringify(p.screenshots)}
+                    data-title={p.cmd}
+                  >
+                    {p.cmd}
+                    <span class="text-base text-accent-dim group-hover/link:translate-x-1 transition-transform inline-block">▶</span>
+                  </button>
+                ) : p.terminal ? (
+                  <button
+                    class="hover:text-accent transition-colors inline-flex items-center gap-2 group/link text-left terminal-trigger"
+                    data-steps={JSON.stringify(p.terminal)}
+                    data-title={p.cmd}
+                  >
+                    {p.cmd}
+                    <span class="text-base text-accent-dim group-hover/link:translate-x-1 transition-transform inline-block">▶</span>
+                  </button>
                 ) : (
                   <span>{p.cmd}</span>
                 )}
@@ -101,8 +187,179 @@ const projects = [
 
     <!-- Footnote -->
     <p class="font-mono text-[11px] text-dim mt-8">
-      // 2 sistemas listados · más casos disponibles bajo NDA
+      // 6 sistemas listados · más casos disponibles bajo NDA
     </p>
 
   </div>
 </section>
+
+<!-- Modal terminal pipeline -->
+<div id="terminal-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+  <div class="relative w-full max-w-2xl">
+    <button id="terminal-close" class="absolute -top-8 right-0 font-mono text-xs text-muted hover:text-ink transition-colors tracking-widest uppercase">cerrar ×</button>
+    <div class="border border-line bg-bg font-mono text-sm">
+      <div class="border-b border-line px-4 py-2.5 flex items-center gap-3">
+        <div class="flex gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-accent" style="opacity:0.7"></span>
+        </div>
+        <span id="terminal-title" class="text-[10px] uppercase tracking-[0.2em] text-muted ml-1"></span>
+        <span class="ml-auto flex items-center gap-1.5 text-[10px] text-accent">
+          <span class="live-dot" style="width:5px;height:5px;"></span>
+          RUNNING
+        </span>
+      </div>
+      <div id="terminal-log" class="px-5 py-5 space-y-2 min-h-[260px]"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal demo celular -->
+<div id="phone-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+  <div class="relative flex flex-col items-center">
+
+    <!-- Cerrar -->
+    <button id="phone-close" class="absolute -top-10 right-0 font-mono text-xs text-muted hover:text-ink transition-colors tracking-widest uppercase">
+      cerrar ×
+    </button>
+
+    <!-- Título -->
+    <p id="phone-title" class="font-mono text-[11px] uppercase tracking-[0.2em] text-accent mb-6"></p>
+
+    <!-- Phone frame -->
+    <div class="relative bg-[#0a0a0a] rounded-[40px] p-3 shadow-2xl" style="width:280px; border: 2px solid #222;">
+      <!-- Notch -->
+      <div class="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#0a0a0a] rounded-full z-10"></div>
+      <!-- Screen -->
+      <div class="relative overflow-hidden rounded-[30px] bg-black" style="height:560px;">
+        <img id="phone-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500" />
+      </div>
+      <!-- Home indicator -->
+      <div class="mt-2 mx-auto w-20 h-1 bg-[#333] rounded-full"></div>
+    </div>
+
+    <!-- Dots -->
+    <div id="phone-dots" class="flex gap-2 mt-5"></div>
+  </div>
+</div>
+
+<script>
+  const modal   = document.getElementById('phone-modal') as HTMLElement;
+  const closeBtn = document.getElementById('phone-close') as HTMLElement;
+  const phoneImg = document.getElementById('phone-img') as HTMLImageElement;
+  const titleEl  = document.getElementById('phone-title') as HTMLElement;
+  const dotsEl   = document.getElementById('phone-dots') as HTMLElement;
+
+  let slides: string[] = [];
+  let current = 0;
+  let timer: ReturnType<typeof setInterval>;
+
+  function showSlide(idx: number) {
+    current = idx;
+    phoneImg.style.opacity = '0';
+    setTimeout(() => {
+      phoneImg.src = slides[current];
+      phoneImg.style.opacity = '1';
+    }, 250);
+    dotsEl.querySelectorAll('span').forEach((d, i) => {
+      d.className = i === current
+        ? 'w-4 h-1.5 rounded-full bg-accent transition-all duration-300'
+        : 'w-1.5 h-1.5 rounded-full bg-line transition-all duration-300';
+    });
+  }
+
+  function openDemo(screenshots: string[], title: string) {
+    slides = screenshots;
+    current = 0;
+    titleEl.textContent = `$ demo / ${title}`;
+    dotsEl.innerHTML = slides.map((_, i) =>
+      `<span class="${i === 0 ? 'w-4 h-1.5 rounded-full bg-accent' : 'w-1.5 h-1.5 rounded-full bg-line'} transition-all duration-300"></span>`
+    ).join('');
+    phoneImg.src = slides[0];
+    phoneImg.style.opacity = '1';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    clearInterval(timer);
+    timer = setInterval(() => showSlide((current + 1) % slides.length), 2500);
+  }
+
+  // Terminal modal
+  const termModal   = document.getElementById('terminal-modal') as HTMLElement;
+  const termClose   = document.getElementById('terminal-close') as HTMLElement;
+  const termLog     = document.getElementById('terminal-log') as HTMLElement;
+  const termTitle   = document.getElementById('terminal-title') as HTMLElement;
+  let termTimers: ReturnType<typeof setTimeout>[] = [];
+
+  function openTerminal(steps: any[], title: string) {
+    termLog.innerHTML = '';
+    termTitle.textContent = title;
+    termTimers.forEach(clearTimeout);
+    termTimers = [];
+    termModal.classList.remove('hidden');
+    termModal.classList.add('flex');
+
+    let lastRunningEl: HTMLElement | null = null;
+
+    steps.forEach((step: any) => {
+      const t = setTimeout(() => {
+        if (step.replace && lastRunningEl) {
+          lastRunningEl.remove();
+          lastRunningEl = null;
+        }
+        if (step.type === 'blank') return;
+
+        const div = document.createElement('div');
+        if (step.type === 'cmd') {
+          div.innerHTML = `<span class="text-muted">${step.text}</span>`;
+        } else if (step.type === 'running') {
+          div.innerHTML = `<span class="text-accent">→</span> <span class="text-muted">${step.text}</span> <span class="text-dim animate-pulse">...</span>`;
+          lastRunningEl = div;
+        } else if (step.type === 'done') {
+          div.innerHTML = `<span class="text-accent">→</span> <span class="text-ink">${step.text}</span>`;
+        } else if (step.type === 'success') {
+          div.innerHTML = `<span class="text-accent font-bold">${step.text}</span>`;
+        }
+        termLog.appendChild(div);
+        termLog.scrollTop = termLog.scrollHeight;
+      }, step.delay);
+      termTimers.push(t);
+    });
+  }
+
+  function closeTerminal() {
+    termTimers.forEach(clearTimeout);
+    termModal.classList.add('hidden');
+    termModal.classList.remove('flex');
+  }
+
+  document.querySelectorAll('.terminal-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const steps = JSON.parse((btn as HTMLElement).dataset.steps || '[]');
+      const title = (btn as HTMLElement).dataset.title || '';
+      openTerminal(steps, title);
+    });
+  });
+
+  termClose.addEventListener('click', closeTerminal);
+  termModal.addEventListener('click', (e) => { if (e.target === termModal) closeTerminal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeTerminal(); closeDemo(); } });
+
+  document.querySelectorAll('.demo-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const screenshots = JSON.parse((btn as HTMLElement).dataset.screenshots || '[]');
+      const title = (btn as HTMLElement).dataset.title || '';
+      openDemo(screenshots, title);
+    });
+  });
+
+  function closeDemo() {
+    clearInterval(timer);
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  closeBtn.addEventListener('click', closeDemo);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeDemo(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDemo(); });
+</script>
