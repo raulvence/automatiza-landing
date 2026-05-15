@@ -96,9 +96,16 @@ const structuredData = {
     <meta name="geo.position" content="8.9943;-79.5188" />
     <meta name="ICBM" content="8.9943, -79.5188" />
 
-    <!-- Performance -->
+    <!-- Performance: fuentes no-bloqueantes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+    </noscript>
     <meta name="theme-color" content="#1F1D17" />
     <meta name="color-scheme" content="dark" />
 
